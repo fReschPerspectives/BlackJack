@@ -58,6 +58,7 @@ def deal_dealer():
     print(busted)
     if busted:
         dealer_score_label.set("Dealer Busted")
+        dealer_button["state"] = "disabled"
     else:
         dealer_score_label.set(dealer_score)
     
@@ -71,6 +72,7 @@ def deal_player():
     print(busted)
     if busted:
         player_score_label.set("Player Busted")
+        player_button["state"] = "disabled"
     else:
         player_score_label.set(player_score)
 
