@@ -57,13 +57,15 @@ def deal_dealer(initial_deal=False):
         deal_card(dealer_card_frame, dealer_hand)
         dealer_score = score_hand(dealer_hand)
         dealer_score_label.set(dealer_score)
+        if dealer_score >= 17:
+            dealer_button["state"] = "disabled"
     while not initial_deal and score_hand(dealer_hand) < stop_criteria:
         deal_card(dealer_card_frame, dealer_hand)
         dealer_score = score_hand(dealer_hand)
         print(dealer_score)
         busted = busts(dealer_score)
         print(busted)
-        if busted:
+        if busted or dealer_score >= 17:
             dealer_score_label.set("Dealer Busted")
             dealer_button["state"] = "disabled"
         else:
