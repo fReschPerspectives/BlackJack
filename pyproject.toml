@@ -1,0 +1,18 @@
+[project]
+name = "blackjack"
+version = "0.1.0"
+description = "A simple blackjack game written in python."
+authors = [
+    {name = "fReschPerspectives",email = "fresch.perspectives@outlook.com"}
+]
+license = {text = "MIT License"}
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "tk (>=0.1.0,<0.2.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
