@@ -50,18 +50,25 @@ def busts(score):
     return score > 21
 
 
-def deal_dealer():
-    deal_card(dealer_card_frame, dealer_hand)
-    global dealer_score; dealer_score = score_hand(dealer_hand)
-    print(dealer_score)
-    busted = busts(dealer_score)
-    print(busted)
-    if busted:
-        dealer_score_label.set("Dealer Busted")
-        dealer_button["state"] = "disabled"
-    else:
+def deal_dealer(initial_deal=False):
+    stop_criteria = 17
+    global dealer_score
+    if initial_deal:
+        deal_card(dealer_card_frame, dealer_hand)
+        dealer_score = score_hand(dealer_hand)
         dealer_score_label.set(dealer_score)
-    
+    while not initial_deal and score_hand(dealer_hand) < stop_criteria:
+        deal_card(dealer_card_frame, dealer_hand)
+        dealer_score = score_hand(dealer_hand)
+        print(dealer_score)
+        busted = busts(dealer_score)
+        print(busted)
+        if busted:
+            dealer_score_label.set("Dealer Busted")
+            dealer_button["state"] = "disabled"
+        else:
+            dealer_score_label.set(dealer_score)
+        
 
 
 def deal_player():
@@ -80,9 +87,9 @@ def deal_player():
 
 def setup_game():
     deal_player()
-    deal_dealer()
+    deal_dealer(True)
     deal_player()
-    deal_dealer()
+    deal_dealer(True)
 
 
 # Setup the screen and frames for the dealer and player
