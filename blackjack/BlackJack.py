@@ -20,10 +20,6 @@ def load_images(card_images):
             image = tkinter.PhotoImage(file=name)
             card_images.append((10, image,))
 
-player_score = 0
-dealer_score = 0
-player_ace = False
-dealer_ace = False
 
 def deal_card(frame, hand):
     # pop the next card off the top of the deck
@@ -37,40 +33,54 @@ def deal_card(frame, hand):
 
 def score_hand(hand):
     ace = False
+    score_corrected = False
     score = 0
     for card in hand:
         if card[0] == 1 and not ace:
             ace = True
             card = (11, card[1])
         score += card[0]
-        if score > 21 and ace:
+        if score > 21 and ace and not score_corrected:
             score -= 10
+            score_corrected = True
     return score
+
+
+def busts(score):
+    return score > 21
+
 
 def deal_dealer():
     deal_card(dealer_card_frame, dealer_hand)
-    dealer_score_label.set(score_hand(dealer_hand))
-    print(dealer_card_frame)
+    global dealer_score; dealer_score = score_hand(dealer_hand)
+    print(dealer_score)
+    busted = busts(dealer_score)
+    print(busted)
+    if busted:
+        dealer_score_label.set("Dealer Busted")
+    else:
+        dealer_score_label.set(dealer_score)
+    
 
 
 def deal_player():
     deal_card(player_card_frame, player_hand)
-    player_score_label.set(score_hand(player_hand))
-    print(player_card_frame)
+    global player_score; player_score = score_hand(player_hand)
+    print(player_score)
+    busted = busts(player_score)
+    print(busted)
+    if busted:
+        player_score_label.set("Player Busted")
+    else:
+        player_score_label.set(player_score)
+
 
 
 def setup_game():
     deal_player()
-    player_score_label.set(score_hand(player_hand))
-    score_hand(player_hand)
     deal_dealer()
-    dealer_score_label.set(score_hand(dealer_hand))
     deal_player()
-    player_score_label.set(score_hand(player_hand))
     deal_dealer()
-    dealer_score_label.set(score_hand(dealer_hand))
-
-
 
 
 # Setup the screen and frames for the dealer and player
