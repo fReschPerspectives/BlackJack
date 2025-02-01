@@ -86,8 +86,24 @@ def deal_player():
         player_score_label.set(player_score)
 
 
-
 def setup_game():
+    global dealer_hand
+    global player_hand
+    global dealer_card_frame
+    global player_card_frame
+    #destroy the card frames if they already exist
+    dealer_card_frame.destroy()
+    player_card_frame.destroy()
+    # create the card frames
+    dealer_card_frame = tkinter.Frame(card_frame, background='green')
+    dealer_card_frame.grid(row=0, column=1, sticky='ew', rowspan=2)
+    player_card_frame = tkinter.Frame(card_frame, background='green')
+    player_card_frame.grid(row=2, column=1, sticky='ew', rowspan=2)
+    # reset the dealer and player hands
+    result_text.set("")
+    dealer_hand = []
+    player_hand = []
+
     deal_player()
     deal_dealer(True)
     deal_player()
