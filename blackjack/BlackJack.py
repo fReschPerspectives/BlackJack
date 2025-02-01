@@ -53,6 +53,7 @@ def busts(score):
 def deal_dealer(initial_deal=False):
     stop_criteria = 17
     global dealer_score
+    dealer_score = 0
     if initial_deal:
         deal_card(dealer_card_frame, dealer_hand)
         dealer_score = score_hand(dealer_hand)
@@ -89,8 +90,17 @@ def deal_player():
 def setup_game():
     global dealer_hand
     global player_hand
+    global dealer_score
+    global player_score
     global dealer_card_frame
     global player_card_frame
+    #reenable the buttons
+    dealer_button["state"] = "normal"
+    # Create a new deck of cards and shuffle them
+    deck = list(cards)
+    random.shuffle(deck)
+    dealer_score=0
+    player_score=0
     #destroy the card frames if they already exist
     dealer_card_frame.destroy()
     player_card_frame.destroy()
@@ -155,7 +165,6 @@ load_images(cards)
 # Create a new deck of cards and shuffle them
 deck = list(cards)
 random.shuffle(deck)
-
 
 # Create the list to store the dealer's and player's hands
 dealer_hand = []
